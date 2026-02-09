@@ -10,7 +10,7 @@ export function ArticleCard({ article }: ArticleCardProps) {
   return (
     <Link
       to={`/article/${article.slug.current}`}
-      className="block rounded-lg border border-gray-200 p-4 transition-colors hover:border-gray-300 hover:bg-gray-50"
+      className="block rounded-lg border border-gray-200 p-4 transition-all hover:border-blue-300 hover:shadow-sm"
     >
       <h3 className="font-medium text-gray-900">{article.title}</h3>
 

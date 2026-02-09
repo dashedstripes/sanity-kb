@@ -64,6 +64,7 @@ export interface ArticleDetail {
     } | null;
   };
   relatedArticles?: ArticleListItem[];
+  internalLinkSlugs?: { _id: string; slug: string }[];
 }
 
 // --- Custom Portable Text block types ---

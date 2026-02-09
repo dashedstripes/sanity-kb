@@ -1,4 +1,5 @@
 import { useParams, Link } from "react-router";
+import { useEffect } from "react";
 import { useSanityQuery } from "@/lib/sanity";
 import { ARTICLE_DETAIL_QUERY } from "@/lib/queries";
 import {
@@ -9,15 +10,25 @@ import {
 import { ArticleBody } from "@/components/portable-text/ArticleBody";
 import { TableOfContents } from "@/components/TableOfContents";
 import { formatRelativeTime } from "@/lib/formatRelativeTime";
+import { useActiveCategory } from "@/hooks/useActiveCategory";
 import type { ArticleDetail } from "@/lib/types";
 
 export function ArticlePage() {
   const { slug } = useParams<{ slug: string }>();
+  const { setCategoryId } = useActiveCategory();
 
   const { data: article, isPending } = useSanityQuery<ArticleDetail>(
     ARTICLE_DETAIL_QUERY,
     { slug },
   );
+
+  // Sync active category to sidebar for wayfinding
+  useEffect(() => {
+    if (article?.category?._id) {
+      setCategoryId(article.category._id);
+    }
+    return () => setCategoryId(null);
+  }, [article?.category?._id, setCategoryId]);
 
   if (isPending) {
     return <ArticleSkeleton />;
@@ -106,7 +117,10 @@ export function ArticlePage() {
       {/* Article body */}
       {article.body && (
         <div className="mt-2">
-          <ArticleBody value={article.body} />
+          <ArticleBody
+            value={article.body}
+            internalLinkSlugs={article.internalLinkSlugs}
+          />
         </div>
       )}
 

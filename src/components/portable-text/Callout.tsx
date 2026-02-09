@@ -46,7 +46,7 @@ export function Callout({ value }: CalloutProps) {
 
   return (
     <div
-      className={`my-4 rounded-r-lg border-l-3 ${config.border} ${config.bg} p-4`}
+      className={`my-4 rounded-r-lg border-l-[3px] ${config.border} ${config.bg} p-4`}
     >
       <div className="flex gap-2.5">
         <span className="shrink-0 text-base">{config.icon}</span>

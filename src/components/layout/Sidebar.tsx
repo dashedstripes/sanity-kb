@@ -5,7 +5,11 @@ import { buildCategoryTree } from "@/lib/buildCategoryTree";
 import { CategoryTree } from "@/components/sidebar/CategoryTree";
 import type { Category } from "@/lib/types";
 
-export function Sidebar() {
+interface SidebarProps {
+  activeCategoryId?: string | null;
+}
+
+export function Sidebar({ activeCategoryId }: SidebarProps) {
   const navigate = useNavigate();
   const { data: categories, isPending } = useSanityQuery<Category[]>(
     CATEGORIES_TREE_QUERY,
@@ -42,7 +46,7 @@ export function Sidebar() {
         {isPending ? (
           <SidebarSkeleton />
         ) : (
-          <CategoryTree nodes={tree} />
+          <CategoryTree nodes={tree} activeCategoryId={activeCategoryId} />
         )}
       </nav>
     </aside>

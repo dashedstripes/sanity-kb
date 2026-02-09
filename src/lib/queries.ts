@@ -77,7 +77,11 @@ export const ARTICLE_DETAIL_QUERY = defineQuery(`
     relatedArticles[]->{
       _id, title, slug, summary,
       category->{ title, slug, icon }
-    }
+    },
+    // Resolve internal link references to slugs for PT rendering.
+    // Extracts all article refs from internalLink annotations in the body,
+    // then fetches their slugs in a single projection (no N+1).
+    "internalLinkSlugs": body[].markDefs[_type == "internalLink"].reference->{ _id, "slug": slug.current }
   }
 `);
 

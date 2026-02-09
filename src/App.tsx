@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import { SanityApp } from "@sanity/sdk-react";
 import { BrowserRouter, Routes, Route } from "react-router";
 import config from "../sanity.config";
+import { NavigationHandler } from "./components/NavigationHandler";
 import { Layout } from "./components/layout/Layout";
 import { HomePage } from "./pages/HomePage";
 import { CategoryPage } from "./pages/CategoryPage";
@@ -28,6 +29,7 @@ export function App() {
             </div>
           }
         >
+          <NavigationHandler />
           <Routes>
             <Route element={<Layout />}>
               <Route index element={<HomePage />} />

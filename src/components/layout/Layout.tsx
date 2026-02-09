@@ -1,8 +1,11 @@
 import { Outlet } from "react-router";
 import { Sidebar } from "./Sidebar";
 import { Header } from "./Header";
+import { useSearchShortcut } from "@/hooks/useSearchShortcut";
 
 export function Layout() {
+  useSearchShortcut();
+
   return (
     <div className="flex h-screen overflow-hidden bg-white">
       <Sidebar />
